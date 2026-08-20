@@ -1,24 +1,53 @@
 import SwiftUI
 
+enum MThemeMode: String, CaseIterable, Identifiable {
+    case system = "System"
+    case light = "Light"
+    case dark = "Dark"
+    case tinted = "Tinted"
+
+    var id: String { rawValue }
+
+    var colorScheme: ColorScheme? {
+        switch self {
+        case .system, .tinted: nil
+        case .light: .light
+        case .dark: .dark
+        }
+    }
+
+    var icon: String {
+        switch self {
+        case .system: "circle.lefthalf.filled"
+        case .light: "sun.max.fill"
+        case .dark: "moon.fill"
+        case .tinted: "paintpalette.fill"
+        }
+    }
+}
+
 enum MTheme {
     enum ColorToken {
-        static let primary = Color(red: 0.25, green: 0.32, blue: 0.71)
-        static let onPrimary = Color.white
-        static let primaryContainer = Color(red: 0.88, green: 0.89, blue: 1.00)
-        static let onPrimaryContainer = Color(red: 0.07, green: 0.09, blue: 0.30)
+        // The palette is deliberately semantic and monochrome. Color.primary and
+        // AppKit system surfaces adapt automatically to Light and Dark appearances.
+        // The user's macOS accent is reserved for focus, controls, and Tint mode.
+        static let primary = Color.primary
+        static let onPrimary = Color(nsColor: .windowBackgroundColor)
+        static let primaryContainer = Color.primary.opacity(0.08)
+        static let onPrimaryContainer = Color.primary
         static let surface = Color(nsColor: .windowBackgroundColor)
         static let surfaceContainer = Color(nsColor: .controlBackgroundColor)
         static let surfaceContainerHigh = Color(nsColor: .underPageBackgroundColor)
         static let onSurfaceVariant = Color.secondary
         static let outline = Color.secondary.opacity(0.48)
         static let outlineVariant = Color.secondary.opacity(0.20)
-        static let error = Color(red: 0.73, green: 0.11, blue: 0.12)
-        static let errorContainer = Color(red: 1.00, green: 0.86, blue: 0.85)
-        static let onErrorContainer = Color(red: 0.28, green: 0.02, blue: 0.02)
-        static let warning = Color(red: 0.55, green: 0.32, blue: 0.00)
-        static let warningContainer = Color(red: 1.00, green: 0.91, blue: 0.72)
-        static let success = Color(red: 0.08, green: 0.48, blue: 0.25)
-        static let successContainer = Color(red: 0.78, green: 0.95, blue: 0.84)
+        static let error = Color.primary
+        static let errorContainer = Color.primary.opacity(0.12)
+        static let onErrorContainer = Color.primary
+        static let warning = Color.primary
+        static let warningContainer = Color.primary.opacity(0.09)
+        static let success = Color.primary
+        static let successContainer = Color.primary.opacity(0.07)
     }
 
     enum Spacing {
@@ -43,6 +72,21 @@ enum MTheme {
         static let label = Font.system(size: 12, weight: .semibold)
         static let caption = Font.system(size: 11)
         static let mono = Font.system(size: 11, design: .monospaced)
+    }
+}
+
+struct MThemePicker: View {
+    @Binding var mode: MThemeMode
+
+    var body: some View {
+        Picker("Appearance", selection: $mode) {
+            ForEach(MThemeMode.allCases) { item in
+                Label(item.rawValue, systemImage: item.icon).tag(item)
+            }
+        }
+        .pickerStyle(.menu)
+        .frame(width: 118)
+        .accessibilityHint("Choose System, Light, Dark, or system-accent Tinted appearance")
     }
 }
 
@@ -128,7 +172,7 @@ struct MButtonStyle: ButtonStyle {
 
     private var foreground: Color {
         switch kind {
-        case .filled, .danger: .white
+        case .filled, .danger: MTheme.ColorToken.onPrimary
         case .tonal: MTheme.ColorToken.onPrimaryContainer
         case .outlined, .text: MTheme.ColorToken.primary
         }

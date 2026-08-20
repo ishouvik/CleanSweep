@@ -3,6 +3,15 @@ import UniformTypeIdentifiers
 
 struct ContentView: View {
     @StateObject private var model = CleanSweepViewModel()
+    @Environment(\.colorScheme) private var colorScheme
+    @AppStorage("appearanceMode") private var appearanceModeRaw = MThemeMode.system.rawValue
+
+    private var appearanceMode: Binding<MThemeMode> {
+        Binding(
+            get: { MThemeMode(rawValue: appearanceModeRaw) ?? .system },
+            set: { appearanceModeRaw = $0.rawValue }
+        )
+    }
 
     var body: some View {
         VStack(spacing: 0) {
@@ -23,6 +32,14 @@ struct ContentView: View {
             actionBar
         }
         .frame(minWidth: 860, minHeight: 700)
+        .preferredColorScheme(appearanceMode.wrappedValue.colorScheme)
+        .tint(appearanceMode.wrappedValue == .tinted ? Color.accentColor : Color.primary)
+        .onAppear { AdaptiveAppIcon.apply(mode: appearanceMode.wrappedValue, colorScheme: colorScheme) }
+        .onChange(of: colorScheme) { _, value in AdaptiveAppIcon.apply(mode: appearanceMode.wrappedValue, colorScheme: value) }
+        .onChange(of: appearanceModeRaw) { _, _ in AdaptiveAppIcon.apply(mode: appearanceMode.wrappedValue, colorScheme: colorScheme) }
+        .onReceive(NotificationCenter.default.publisher(for: Notification.Name("NSSystemColorsDidChangeNotification"))) { _ in
+            AdaptiveAppIcon.apply(mode: appearanceMode.wrappedValue, colorScheme: colorScheme)
+        }
         .confirmationDialog("Confirm cleanup", isPresented: $model.showConfirmation, titleVisibility: .visible) {
             Button(model.mode == .generic ? "Confirm Permanent Cleanup" : "Confirm Move to Trash", role: .destructive) {
                 model.confirmAndExecute()
@@ -38,7 +55,7 @@ struct ContentView: View {
             ZStack {
                 RoundedRectangle(cornerRadius: MTheme.Radius.medium, style: .continuous)
                     .fill(MTheme.ColorToken.primary).frame(width: 50, height: 50)
-                Image(systemName: "sparkles").font(.system(size: 24, weight: .bold)).foregroundStyle(.white)
+                Image(systemName: "sparkles").font(.system(size: 24, weight: .bold)).foregroundStyle(MTheme.ColorToken.onPrimary)
             }
             VStack(alignment: .leading, spacing: MTheme.Spacing.xs) {
                 Text("CleanSweep").font(MTheme.Typography.display)
@@ -46,8 +63,8 @@ struct ContentView: View {
                     .font(MTheme.Typography.body).foregroundStyle(MTheme.ColorToken.onSurfaceVariant)
             }
             Spacer()
-            MChip(text: "Native macOS", icon: "apple.logo")
-            MChip(text: "Scan-first safety", icon: "checkmark.shield.fill", color: MTheme.ColorToken.success)
+            MThemePicker(mode: appearanceMode)
+            MChip(text: "Scan-first safety", icon: "checkmark.shield.fill")
         }
         .padding(.horizontal, MTheme.Spacing.xl)
         .padding(.vertical, MTheme.Spacing.lg)

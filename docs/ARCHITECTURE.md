@@ -22,6 +22,8 @@ CleanSweepViewModel (@MainActor)
 
 `ContentView.swift` composes the scan, review, warning, confirmation, progress, and result states. `MaterialDesignSystem.swift` contains semantic tokens and reusable components. The UI never discovers or removes files directly.
 
+The design system uses `Color.primary` and AppKit semantic surfaces so monochrome contrast follows macOS automatically. `MThemeMode` supports System, Light, Dark, and Tinted modes; Tinted mode reserves the user's current macOS accent for interactive controls. `AdaptiveAppIcon` selects the packaged light/dark artwork or recolors the transparent template with `NSColor.controlAccentColor` at runtime.
+
 ### State coordination
 
 `CleanSweepViewModel` owns the visible candidates and the scan/execution state machine. UI-facing updates are main-actor isolated. Scanning occurs away from the main actor so large directory walks do not freeze the window.
