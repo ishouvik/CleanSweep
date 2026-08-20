@@ -12,11 +12,11 @@ No third-party Swift packages are used.
 ## Clone
 
 ```sh
-git clone git@github.com:ishouvik/CleanSweet.git
-cd CleanSweet
+git clone https://github.com/ishouvik/CleanSweep.git
+cd CleanSweep
 ```
 
-The repository is named `CleanSweet`; the product and executable are named `CleanSweep`.
+The repository, product, and executable are named `CleanSweep`.
 
 ## Development build
 

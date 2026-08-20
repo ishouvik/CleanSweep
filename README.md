@@ -1,13 +1,13 @@
 # CleanSweep
 
-[![CI](https://github.com/ishouvik/CleanSweet/actions/workflows/ci.yml/badge.svg)](https://github.com/ishouvik/CleanSweet/actions/workflows/ci.yml)
+[![CI](https://github.com/ishouvik/CleanSweep/actions/workflows/ci.yml/badge.svg)](https://github.com/ishouvik/CleanSweep/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 [![macOS](https://img.shields.io/badge/macOS-14%2B-black.svg)](https://www.apple.com/macos/)
 [![Swift](https://img.shields.io/badge/Swift-6-orange.svg)](https://www.swift.org/)
 
 CleanSweep is a native, scan-first macOS cleanup utility. It finds a conservative set of regenerable caches and stale files, or safely prepares an application and its exact associated files for removal. Nothing changes until the user reviews the paths, sees the risks, and confirms.
 
-> The GitHub repository is named **CleanSweet**. The application, executable, and Swift target are named **CleanSweep**.
+The GitHub repository, application, executable, and Swift target are named **CleanSweep**.
 
 ## Features
 
@@ -63,8 +63,8 @@ No external Swift dependencies are required.
 ## Clone and build
 
 ```sh
-git clone git@github.com:ishouvik/CleanSweet.git
-cd CleanSweet
+git clone https://github.com/ishouvik/CleanSweep.git
+cd CleanSweep
 ./scripts/test.sh
 ./scripts/build-app.sh
 ```
