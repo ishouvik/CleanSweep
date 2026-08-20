@@ -13,12 +13,18 @@ if [[ -d /Library/Developer/CommandLineTools/SDKs/MacOSX15.4.sdk ]]; then
 fi
 
 cd "$PROJECT_DIR"
+"$PROJECT_DIR/scripts/generate-icon-assets.sh"
 swift build --disable-sandbox -c release
 
 rm -rf "$APP_DIR"
 mkdir -p "$APP_DIR/Contents/MacOS" "$APP_DIR/Contents/Resources"
 cp "$BUILD_DIR/$APP_NAME" "$APP_DIR/Contents/MacOS/$APP_NAME"
 cp "$PROJECT_DIR/Resources/Info.plist" "$APP_DIR/Contents/Info.plist"
+cp "$PROJECT_DIR/Resources/Icons/CleanSweep.icns" "$APP_DIR/Contents/Resources/CleanSweep.icns"
+cp "$PROJECT_DIR/Resources/Icons/CleanSweepLight.png" "$APP_DIR/Contents/Resources/CleanSweepLight.png"
+cp "$PROJECT_DIR/Resources/Icons/CleanSweepDark.png" "$APP_DIR/Contents/Resources/CleanSweepDark.png"
+cp "$PROJECT_DIR/Resources/Icons/CleanSweepTinted.png" "$APP_DIR/Contents/Resources/CleanSweepTinted.png"
+cp "$PROJECT_DIR/Resources/Icons/CleanSweepTemplate.png" "$APP_DIR/Contents/Resources/CleanSweepTemplate.png"
 codesign --force --deep --sign - "$APP_DIR"
 
 echo "Built $APP_DIR"

@@ -21,6 +21,8 @@ CleanSweep is a native, scan-first macOS cleanup utility. It finds a conservativ
 - Recoverable application removal through macOS Trash.
 - Immediate freed-space reporting for cache deletion and separate moved-to-Trash totals.
 - Native dependency-free Material-inspired SwiftUI design system.
+- Monochrome interface with System, Light, Dark, and system-accent Tinted appearances.
+- Adaptive monochrome application icon with light, dark, and runtime tint variants.
 - Unit, filesystem integration, and packaged-app smoke tests.
 
 ## Safety model

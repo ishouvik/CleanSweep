@@ -8,6 +8,8 @@
     <string>CleanSweep</string>
     <key>CFBundleIdentifier</key>
     <string>com.shouvik.cleansweep</string>
+    <key>CFBundleIconFile</key>
+    <string>CleanSweep.icns</string>
     <key>CFBundleInfoDictionaryVersion</key>
     <string>6.0</string>
     <key>CFBundleName</key>

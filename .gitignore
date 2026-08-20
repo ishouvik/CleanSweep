@@ -2,3 +2,8 @@
 dist/
 .DS_Store
 *.swp
+Resources/Icons/CleanSweep.iconset/
+Resources/Icons/CleanSweep.icns
+Resources/Icons/CleanSweepLight.png
+Resources/Icons/CleanSweepDark.png
+Resources/Icons/CleanSweepTinted.png

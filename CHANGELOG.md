@@ -4,6 +4,15 @@ All notable changes are documented here. The format follows [Keep a Changelog](h
 
 ## [Unreleased]
 
+### Changed
+
+- Replaced the colored design tokens with an adaptive monochrome theme inspired by Ollama/oMLX.
+- Added System, Light, Dark, and system-accent Tinted appearance modes.
+
+### Added
+
+- New CleanSweep application icon with monochrome light/dark assets, a tint-ready template, runtime accent tinting, and multi-resolution ICNS packaging.
+
 ## [1.0.0] - 2026-08-20
 
 ### Added
