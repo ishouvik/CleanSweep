@@ -25,5 +25,5 @@ All notable changes are documented here. The format follows [Keep a Changelog](h
 - Unit, filesystem integration, and packaged-app smoke test layers.
 - Apache License 2.0 open-source release and contribution documentation.
 
-[Unreleased]: https://github.com/ishouvik/CleanSweet/compare/v1.0.0...HEAD
-[1.0.0]: https://github.com/ishouvik/CleanSweet/releases/tag/v1.0.0
+[Unreleased]: https://github.com/ishouvik/CleanSweep/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/ishouvik/CleanSweep/releases/tag/v1.0.0
